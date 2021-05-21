@@ -15,12 +15,12 @@ namespace BackupSynchronizer
 
         public IEnumerable<FileNodeElement> GetElements()
         {
-            return FolderPath.EnumerateFiles().Select(file => new FileNodeElement(file));
+            return FolderPath.Exists ? FolderPath.EnumerateFiles().Select(file => new FileNodeElement(file)) : Enumerable.Empty<FileNodeElement>();
         }
 
         public IEnumerable<FolderNode> GetSubnodes()
         {
-            return FolderPath.EnumerateDirectories().Select(folder => new FolderNode(folder));
+            return FolderPath.Exists ? FolderPath.EnumerateDirectories().Select(folder => new FolderNode(folder)) : Enumerable.Empty<FolderNode>();
         }
 
         public bool IsEqual(FolderNode other)

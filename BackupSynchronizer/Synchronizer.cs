@@ -6,13 +6,13 @@ namespace BackupSynchronizer
 {
     public class Synchronizer
     {
-        public IEnumerable<SynchronizeAction<T, U>> Synchronize<T, U>(INode<T, U> source, INode<T, U> dest) where T : INode<T, U> where U : INodeElement
+        public IEnumerable<SynchronizeAction<T, U>> Synchronize<T, U>(T source, T dest) where T : INode<T, U> where U : INodeElement
         {
-            return SynchronizeFiles(source, dest)
-                .Concat(SynchronizeFolders(source, dest));
+            return SynchronizeFiles<T, U>(source, dest)
+                .Concat(SynchronizeFolders<T, U>(source, dest));
         }
 
-        private IEnumerable<SynchronizeAction<T, U>> SynchronizeFiles<T, U>(INode<T, U> source, INode<T, U> dest) where T : INode<T, U> where U : INodeElement
+        private IEnumerable<SynchronizeAction<T, U>> SynchronizeFiles<T, U>(T source, T dest) where T : INode<T, U> where U : INodeElement
         {
             var sourceElements = source.GetElements();
             var destElements = dest.GetElements();
@@ -38,7 +38,7 @@ namespace BackupSynchronizer
             }
         }
 
-        private IEnumerable<SynchronizeAction<T,U>> SynchronizeFolders<T, U>(INode<T, U> source, INode<T, U> dest) where T : INode<T, U> where U : INodeElement
+        private IEnumerable<SynchronizeAction<T,U>> SynchronizeFolders<T, U>(T source, T dest) where T : INode<T, U> where U : INodeElement
         {
             var sourceNodes = source.GetSubnodes();
             var destNodes = dest.GetSubnodes();
@@ -56,7 +56,7 @@ namespace BackupSynchronizer
                         yield return new SynchronizeAction<T, U> { SourceNode = sourceNode, DestinationNode = dest, ActionType = ActionType.CopySourceNodeToDestination };
                         break;
                     case DifferenceType.Same:
-                        foreach (var dif in Synchronize(sourceNode, destNode))
+                        foreach (var dif in Synchronize<T, U>(sourceNode, destNode))
                             yield return dif;
                         break;
                 }
@@ -96,8 +96,8 @@ namespace BackupSynchronizer
 
     public class SynchronizeAction<T, U> where T : INode<T, U> where U : INodeElement
     {
-        public INode<T, U> SourceNode;
-        public INode<T, U> DestinationNode;
+        public T SourceNode;
+        public T DestinationNode;
         public U SourceNodeElement;
         public U DestinationNodeElement;
         public ActionType ActionType;
