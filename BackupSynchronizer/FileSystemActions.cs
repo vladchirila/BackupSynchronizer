@@ -42,11 +42,13 @@ namespace BackupSynchronizer
 
         public void Remove(FolderNode node)
         {
+            node.FolderPath.Attributes &= ~FileAttributes.ReadOnly;
             node.FolderPath.Delete(true);
         }
 
         public void Remove(FileNodeElement nodeElement)
         {
+            nodeElement.FilePath.Attributes &= ~FileAttributes.ReadOnly;
             nodeElement.FilePath.Delete();
         }
     }

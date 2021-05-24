@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BackupSynchronizer": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\vladc\\Downloads\\d\" \"D:\\d\""
+    }
+  }
+}
