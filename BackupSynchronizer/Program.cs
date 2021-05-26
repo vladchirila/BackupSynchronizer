@@ -21,7 +21,12 @@ namespace BackupSynchronizer
             if (!Directory.Exists(dest))
                 throw new Exception("Destination directory not found.");
 
-            BackupSynchronizerAction.DoBackup(source, dest, doNotDeleteDestFiles);
+            var backupSynchronizerAction = new BackupSynchronizerAction();
+            backupSynchronizerAction.OnFileCopy += (sender, args) => Console.WriteLine($"Copying file {args.FileToCopy.FilePath} to {args.DestinationFolder.FolderPath}...");
+            backupSynchronizerAction.OnFolderCopy += (sender, args) => Console.WriteLine($"Copying folder {args.FolderToCopy.FolderPath} to {args.DestinationFolder.FolderPath}...");
+            backupSynchronizerAction.OnFileDelete += (sender, args) => Console.WriteLine($"Deleting file {args.FilePath}...");
+            backupSynchronizerAction.OnFolderDelete += (sender, args) => Console.WriteLine($"Deleting folder {args.FolderPath}...");
+            backupSynchronizerAction.DoBackup(source, dest, doNotDeleteDestFiles);
         }
     }
 }

@@ -1,4 +1,4 @@
-module BackupSynchronizer.FSTests
+module BackupSynchronizer.FSTests.BackupSynchronizerTests
 
 open NUnit.Framework
 open BackupSynchronizer
@@ -54,7 +54,7 @@ let ``Sursa ramane la fel dupa backup`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains sourceRootPath sourceStructure)
     
 [<Test>]
@@ -64,7 +64,7 @@ let ``Destinatia e cum trebuie dupa backup`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains destRootPath sourceStructure)
     
 [<Test>]
@@ -73,7 +73,7 @@ let ``Daca destinatia e goala atunci se creaza structura din sursa`` () =
     let sourceRootPath = createStructure structure
     let destRootPath = getTempPath ()
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains destRootPath structure)
         
 [<Test>]
@@ -82,7 +82,7 @@ let ``Daca destinatia e la fel cu sursa atunci ramane la fel`` () =
     let sourceRootPath = createStructure structure
     let destRootPath = createStructure structure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains destRootPath structure)
     
 [<Test>]
@@ -92,7 +92,7 @@ let ``Daca lipseste un folder atunci e creat`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains destRootPath sourceStructure)
 
 [<Test>]
@@ -102,7 +102,7 @@ let ``Daca lipseste un fisier e creat`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains destRootPath sourceStructure)
     
 [<Test>]
@@ -112,7 +112,7 @@ let ``Daca e un fisier in plus e sters`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains destRootPath sourceStructure)
 
 [<Test>]
@@ -122,7 +122,7 @@ let ``Daca e un folder in plus e sters`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,false)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,false)
     Assert.IsTrue(checkStructureContains destRootPath sourceStructure)
  
 [<Test>]
@@ -132,7 +132,7 @@ let ``Daca e un fisier in plus si nu stergem, atunci nu e sters`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,true)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,true)
     Assert.IsTrue(checkStructureContains destRootPath destStructure)
 
 [<Test>]
@@ -142,6 +142,6 @@ let ``Daca e un folder in plus si nu stergem, atunci nu e sters`` () =
     let sourceRootPath = createStructure sourceStructure
     let destRootPath = createStructure destStructure
     foldersToCleanup <- List.append [sourceRootPath; destRootPath] foldersToCleanup
-    BackupSynchronizer.BackupSynchronizerAction.DoBackup (sourceRootPath,destRootPath,true)
+    (new BackupSynchronizer.BackupSynchronizerAction ()).DoBackup (sourceRootPath,destRootPath,true)
     Assert.IsTrue(checkStructureContains destRootPath destStructure)
     

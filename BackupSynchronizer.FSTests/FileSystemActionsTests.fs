@@ -1,4 +1,4 @@
-﻿module FileSystemActionsTests
+﻿module BackupSynchronizer.FSTests.FileSystemActionsTests
 
 open NUnit.Framework
 open BackupSynchronizer
