@@ -2,7 +2,7 @@
   "profiles": {
     "BackupSynchronizer": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\vladc\\Downloads\\d\" \"D:\\d\""
+      "commandLineArgs": "\"C:\\Users\\vladc\\Downloads\\t\" \"D:\\t\""
     }
   }
 }

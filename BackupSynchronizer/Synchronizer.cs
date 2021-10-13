@@ -75,7 +75,7 @@ namespace BackupSynchronizer
             source = source.ToArray();
             dest = dest.ToArray();
 
-            var annotatedSource = source.Select(s => new { source = s, dest = dest.FirstOrDefault(d => areEqual(s, d)) });
+            var annotatedSource = source.Select(s => new { source = s, dest = dest.FirstOrDefault(d => areEqual(s, d)) }).ToArray();
 
             var onlyInSource = annotatedSource.Where(a => a.dest == null).Select(a => (a.source, default(X), DifferenceType.DestinationMissing));
             var inBoth = annotatedSource.Where(a => a.dest != null).Select(a => (a.source, a.dest, DifferenceType.Same));
